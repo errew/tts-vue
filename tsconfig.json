@@ -14,7 +14,6 @@
     "paths": { "@/*": ["src/*"] },
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
-    "suppressImplicitAnyIndexErrors": true
   },
   "references": [{ "path": "./tsconfig.node.json" }],
   "include": [
