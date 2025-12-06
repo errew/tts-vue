@@ -18,11 +18,11 @@ import {
   ElDivider,
   ElSwitch,
   ElPopover,
-  ElDropdown,
-} from "element-plus";
-import "element-plus/dist/index.css";
-import "element-plus/theme-chalk/display.css";
-import * as Icons from "@element-plus/icons-vue";
+  ElDropdown
+} from 'element-plus'
+import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/display.css'
+import * as Icons from '@element-plus/icons-vue'
 
 const components = [
   ElContainer,
@@ -59,15 +59,15 @@ const components = [
 
   ElDropdown,
   ElDropdown.DropdownMenu,
-  ElDropdown.DropdownItem,
-];
+  ElDropdown.DropdownItem
+]
 
 export default function (app: any) {
   for (const component of components) {
-    app.component(component.name, component);
+    app.component(component.name, component)
   }
 
   for (const name in Icons) {
-    app.component(name, (Icons as any)[name]);
+    app.component(name, (Icons as any)[name])
   }
 }

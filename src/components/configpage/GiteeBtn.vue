@@ -3,12 +3,7 @@
     <button @click="gitee">
       <div class="svg-wrapper-1">
         <div class="svg-wrapper">
-          <img
-            width="25"
-            height="25"
-            src="https://gitee.com/assets/favicon.ico"
-            alt=""
-          />
+          <img width="25" height="25" src="https://gitee.com/assets/favicon.ico" alt="" />
         </div>
       </div>
       <span style="font-weight: 700">Gitee</span>
@@ -17,10 +12,10 @@
 </template>
 
 <script setup lang="ts">
-const { shell } = require("electron");
+const { shell } = require('electron')
 const gitee = () => {
-  shell.openExternal("https://gitee.com/LGW_space/tts-vue");
-};
+  shell.openExternal('https://gitee.com/LGW_space/tts-vue')
+}
 </script>
 
 <style scoped>

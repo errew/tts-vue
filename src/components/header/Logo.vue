@@ -1,4 +1,5 @@
-<template>  <div>
+<template>
+  <div>
     <div class="button">
       <div class="box" :class="{ 'winStyle-1': winStyle }">T</div>
       <div class="box">T</div>
@@ -12,7 +13,7 @@
 </template>
 
 <script setup lang="ts">
-const { winStyle } = defineProps(["winStyle"]);
+const { winStyle } = defineProps(['winStyle'])
 </script>
 
 <style scoped>
@@ -40,7 +41,7 @@ const { winStyle } = defineProps(["winStyle"]);
 }
 
 .box:before {
-  content: "52";
+  content: '52';
   position: absolute;
   top: 0;
   background: #67c23a;
@@ -55,27 +56,27 @@ const { winStyle } = defineProps(["winStyle"]);
 
 .box:nth-child(2)::before {
   transform: translateY(-100%);
-  content: "PJ";
+  content: 'PJ';
 }
 
 .box:nth-child(3)::before {
-  content: "L";
+  content: 'L';
 }
 
 .box:nth-child(4)::before {
   transform: translateY(-100%);
-  content: "O";
+  content: 'O';
 }
 
 .box:nth-child(5)::before {
-  content: "K";
+  content: 'K';
 }
 .box:nth-child(6)::before {
   transform: translateY(-100%);
-  content: "E";
+  content: 'E';
 }
 .box:nth-child(7)::before {
-  content: "R";
+  content: 'R';
 }
 .winStyle-7 {
   border-top-right-radius: 10px;

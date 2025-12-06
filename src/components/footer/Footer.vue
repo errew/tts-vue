@@ -1,14 +1,11 @@
 <template>
   <div class="footer">
     <div class="play-bar">
-
       <div class="format-bar-options">
-        <span style="color:#1677ff;font-size: 14px;white-space: nowrap;">{{t('footer.format')}}:&nbsp&nbsp;</span>
-        <el-select
-          v-model="config.formatType"
-          style="width: 120px;"
-          @change="setFormatType"
+        <span style="color: #1677ff; font-size: 14px; white-space: nowrap"
+          >{{ t('footer.format') }}:&nbsp&nbsp;</span
         >
+        <el-select v-model="config.formatType" style="width: 120px" @change="setFormatType">
           <el-option
             v-for="format in formatOptions"
             :key="format.value"
@@ -44,29 +41,29 @@
 </template>
 
 <script setup lang="ts">
-import { useTtsStore } from "@/store/store";
-import { storeToRefs } from "pinia";
-import { Download } from "@element-plus/icons-vue";
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();  
+import { useTtsStore } from '@/store/store'
+import { storeToRefs } from 'pinia'
+import { Download } from '@element-plus/icons-vue'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-const ttsStore = useTtsStore();
-const { config, currMp3Url, isLoading, audioPlayer } = storeToRefs(ttsStore);
+const ttsStore = useTtsStore()
+const { config, currMp3Url, isLoading, audioPlayer } = storeToRefs(ttsStore)
 
 const formatOptions = [
   { label: 'MP3', value: '.mp3' },
   { label: 'WAV', value: '.wav' },
   { label: 'WMA', value: '.wma' },
-  { label: 'AIFF', value: '.aiff' },
+  { label: 'AIFF', value: '.aiff' }
   // Agrega más formatos según sea necesario
-];
+]
 
 const download = () => {
-  ttsStore.writeFileSync();
-};
+  ttsStore.writeFileSync()
+}
 const setFormatType = () => {
-  ttsStore.setFormatType(); 
-};
+  ttsStore.setFormatType()
+}
 </script>
 
 <style scoped>
@@ -86,7 +83,7 @@ const setFormatType = () => {
 .format-bar-options {
   width: 150px;
   justify-content: center;
-  align-items:center;
+  align-items: center;
   display: inline-flex;
   margin-right: 5px;
 }

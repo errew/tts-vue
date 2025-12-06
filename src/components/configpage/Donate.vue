@@ -21,7 +21,7 @@
           </h3>
           <img
             class="subtitle-img"
-            src="https://cdn.staticaly.com/gh/LokerL/picx-images-hosting@master/wx.webp"
+            :src="wx"
             alt=""
             srcset=""
           />
@@ -34,7 +34,7 @@
           </h3>
           <img
             class="subtitle-img"
-            src="https://cdn.staticaly.com/gh/LokerL/picx-images-hosting@master/zfb.webp"
+            :src="zfb"
             alt=""
             srcset=""
           />
@@ -48,7 +48,10 @@
 import GiteeBtn from "./GiteeBtn.vue";
 import GithubBtn from "./GithubBtn.vue";
 import { useI18n } from 'vue-i18n';
-const { t } = useI18n();  
+import wx from '@/assets/wx.png';
+import zfb from '@/assets/zfb.png';
+
+const { t } = useI18n();
 </script>
 
 <style scoped>

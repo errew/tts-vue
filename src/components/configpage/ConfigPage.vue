@@ -1,7 +1,7 @@
 <template>
   <div class="config-page">
     <div class="config-side" label-position="right">
-      <el-form :model="config" >
+      <el-form :model="config">
         <el-form-item :label="t('configPage.language')">
           <el-select
             v-model="config.language"
@@ -30,49 +30,49 @@
           </el-input>
         </el-form-item>
         <el-form-item :label="t('configPage.retryCount')">
-            <el-input
-              type="number"
-              v-model="config.retryCount"
-              min="1"
-              size="small"
-              class="input-path"
-              @change="setRetryCount"
-              />
+          <el-input
+            type="number"
+            v-model="config.retryCount"
+            min="1"
+            size="small"
+            class="input-path"
+            @change="setRetryCount"
+          />
         </el-form-item>
         <el-form-item :label="t('configPage.retryInterval')">
-            <el-input
-              type="number"
-              v-model="config.retryInterval"
-              min="0"
-              size="small"
-              class="input-path"
-              @change="setRetryInterval"
-              />
+          <el-input
+            type="number"
+            v-model="config.retryInterval"
+            min="0"
+            size="small"
+            class="input-path"
+            @change="setRetryInterval"
+          />
         </el-form-item>
         <el-form-item :label="t('configPage.speechKey')">
-            <el-input
-              v-model="config.speechKey"
-              size="small"
-              class="input-path"
-              @change="setSpeechKey"
-              />
+          <el-input
+            v-model="config.speechKey"
+            size="small"
+            class="input-path"
+            @change="setSpeechKey"
+          />
         </el-form-item>
         <el-form-item :label="t('configPage.serviceRegion')">
-            <el-input
-              v-model="config.serviceRegion"
-              size="small"
-              class="input-path"
-              @change="setServiceRegion"
-              :placeholder="t('configPage.serviceRegionPlaceHolder')"
-              />
+          <el-input
+            v-model="config.serviceRegion"
+            size="small"
+            class="input-path"
+            @change="setServiceRegion"
+            :placeholder="t('configPage.serviceRegionPlaceHolder')"
+          />
         </el-form-item>
         <el-form-item :label="t('configPage.openAIKey')">
-            <el-input
-              v-model="config.openAIKey"
-              size="small"
-              class="input-path"
-              @change="setOpenAIKey"
-              />
+          <el-input
+            v-model="config.openAIKey"
+            size="small"
+            class="input-path"
+            @change="setOpenAIKey"
+          />
         </el-form-item>
         <el-form-item :label="t('configPage.gptModel')">
           <el-select
@@ -118,32 +118,27 @@
         <el-form-item :label="t('configPage.auditionText')">
           <el-input v-model="config.audition" size="small" class="input-path">
             <template #append>
-              <el-button type="primary" @click="auditionConfig">{{ t('configPage.confirm') }}</el-button>
+              <el-button type="primary" @click="auditionConfig">{{
+                t('configPage.confirm')
+              }}</el-button>
             </template>
           </el-input>
         </el-form-item>
         <el-form-item :label="t('configPage.templateEdit')">
-          <el-table
-            :data="config.formConfigList"
-            style="width: 100%"
-            height="calc(100vh - 560px)"
-          >
-          <el-table-column :prop="t('configPage.name')" :label="t('configPage.name')">
+          <el-table :data="config.formConfigList" style="width: 100%" height="calc(100vh - 560px)">
+            <el-table-column :prop="t('configPage.name')" :label="t('configPage.name')">
               <template #default="scope">
-                <el-popover
-                  effect="light"
-                  trigger="hover"
-                  placement="top"
-                  width="auto"
-                >
-                  <template #default>-->
-                    <div>{{ t('configPage.language') }}: {{ scope.row.content.languageSelect }}</div>
+                <el-popover effect="light" trigger="hover" placement="top" width="auto">
+                  <template #default
+                    >-->
+                    <div>
+                      {{ t('configPage.language') }}: {{ scope.row.content.languageSelect }}
+                    </div>
                     <div>{{ t('configPage.voice') }}: {{ scope.row.content.voiceSelect }}</div>
                     <div>{{ t('configPage.style') }}: {{ scope.row.content.voiceStyleSelect }}</div>
                     <div>{{ t('configPage.role') }}: {{ scope.row.content.role }}</div>
                     <div>{{ t('configPage.speed') }}: {{ scope.row.content.speed }}</div>
                     <div>{{ t('configPage.pitch') }}: {{ scope.row.content.pitch }}</div>
-
                   </template>
                   <template #reference>
                     <el-tag>{{ scope.row.tagName }}</el-tag>
@@ -189,150 +184,148 @@
 </template>
 
 <script setup lang="ts">
-import { reactive, ref } from "vue";
-import { ElMessage } from "element-plus";
-import { useTtsStore } from "@/store/store";
-import { storeToRefs } from "pinia";
-import Donate from "./Donate.vue";
-import { useI18n } from 'vue-i18n';
-import i18n from "@/assets/i18n/i18n";
-const { t } = useI18n();
+import { reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useTtsStore } from '@/store/store'
+import { storeToRefs } from 'pinia'
+import Donate from './Donate.vue'
+import { useI18n } from 'vue-i18n'
+import i18n from '@/assets/i18n/i18n'
+const { t } = useI18n()
 
-const { ipcRenderer, shell } = require("electron");
+const { ipcRenderer, shell } = require('electron')
 
-const Store = require("electron-store");
-const store = new Store();
+const Store = require('electron-store')
+const store = new Store()
 
-const ttsStore = useTtsStore();
-const { config } = storeToRefs(ttsStore);
-
+const ttsStore = useTtsStore()
+const { config } = storeToRefs(ttsStore)
 
 const languages = [
   { label: 'English', value: 'en' },
   { label: 'Español', value: 'es' },
-  { label: '中文', value: 'zh' },
-];
+  { label: '中文', value: 'zh' }
+]
 
 const gptModels = [
-  { label: 'GPT-3.5 Turbo', value: 'gpt-3.5-turbo'},
-  { label: 'GPT-3.5 Turbo 16k', value: 'gpt-3.5-turbo-16k'},
-  { label: 'GPT-3.5 Turbo Instruct', value: 'gpt-3.5-turbo-instruct'},
-  { label: 'GPT 4 8k', value: 'gpt-4'},
-  { label: 'GPT 4 32k', value: 'gpt-4-32k'},
-];
+  { label: 'GPT-3.5 Turbo', value: 'gpt-3.5-turbo' },
+  { label: 'GPT-3.5 Turbo 16k', value: 'gpt-3.5-turbo-16k' },
+  { label: 'GPT-3.5 Turbo Instruct', value: 'gpt-3.5-turbo-instruct' },
+  { label: 'GPT 4 8k', value: 'gpt-4' },
+  { label: 'GPT 4 32k', value: 'gpt-4-32k' }
+]
 
 const saveLanguageConfig = () => {
   // Actualiza el idioma en i18n y guarda la configuración
-  i18n.global.locale.value = config.value.language;
-  ttsStore.setLanguage();
-  successMessage();
-};
-
+  i18n.global.locale.value = config.value.language
+  ttsStore.setLanguage()
+  successMessage()
+}
 
 const openFolderSelector = async () => {
-  const path = await ipcRenderer.invoke("openFolderSelector");
+  const path = await ipcRenderer.invoke('openFolderSelector')
   if (path) {
-    config.value.savePath = path[0];
+    config.value.savePath = path[0]
   }
-};
+}
 
 const successMessage = () => {
   ElMessage({
-    message: "保存成功，请点击“刷新配置”立即应用。",
-    type: "success",
-    duration: 2000,
-  });
-};
+    message: '保存成功，请点击“刷新配置”立即应用。',
+    type: 'success',
+    duration: 2000
+  })
+}
 
 const handleDelete = (index: any, row: any) => {
-  delete config.value.formConfigJson[row.tagName];
-  store.set("FormConfig", config.value.formConfigJson);
-  ttsStore.genFormConfig();
+  delete config.value.formConfigJson[row.tagName]
+  store.set('FormConfig', config.value.formConfigJson)
+  ttsStore.genFormConfig()
 
   ElMessage({
-    message: "删除成功，请点击“刷新配置”立即应用。",
-    type: "success",
-    duration: 2000,
-  });
-};
+    message: '删除成功，请点击“刷新配置”立即应用。',
+    type: 'success',
+    duration: 2000
+  })
+}
 
 const openConfigFile = () => {
-  shell.openPath(store.path);
-};
+  shell.openPath(store.path)
+}
 
 const openLogs = () => {
-  ipcRenderer.send("openLogs");
-};
+  ipcRenderer.send('openLogs')
+}
 
 const openLogFolder = () => {
-  ipcRenderer.send("openLogFolder");
+  ipcRenderer.send('openLogFolder')
   ElMessage({
-    message: "正在打开日志文件夹，请手动清理！",
-    type: "error",
-    duration: 10000,
-  });
-};
+    message: '正在打开日志文件夹，请手动清理！',
+    type: 'error',
+    duration: 10000
+  })
+}
 
 const savePathConfig = () => {
-  ttsStore.setSavePath();
-  successMessage();
-};
+  ttsStore.setSavePath()
+  successMessage()
+}
 
 const auditionConfig = () => {
-  ttsStore.setAuditionConfig();
-  successMessage();
-};
+  ttsStore.setAuditionConfig()
+  successMessage()
+}
 
 const switchChange = () => {
-  ttsStore.setAutoPlay();
-  successMessage();
-};
+  ttsStore.setAutoPlay()
+  successMessage()
+}
 
 const updateNotificationChange = () => {
-  ttsStore.updateNotificationChange();
-  successMessage();
-};
+  ttsStore.updateNotificationChange()
+  successMessage()
+}
 
 const updateTitleStyle = () => {
-  ttsStore.updateTitleStyle();
-  successMessage();
-};
+  ttsStore.updateTitleStyle()
+  successMessage()
+}
 
 const setSpeechKey = () => {
-  ttsStore.setSpeechKey();
-  successMessage();
-};
+  ttsStore.setSpeechKey()
+  successMessage()
+}
 
 const setServiceRegion = () => {
-  ttsStore.setServiceRegion();
-  successMessage();
-};
+  ttsStore.setServiceRegion()
+  successMessage()
+}
 
 const setOpenAIKey = () => {
-  ttsStore.setOpenAIKey();
-  successMessage();
-};
+  ttsStore.setOpenAIKey()
+  successMessage()
+}
 
 const setGPTModel = () => {
-  ttsStore.setGPTModel();
-  successMessage();
-};
+  ttsStore.setGPTModel()
+  successMessage()
+}
 
 const setRetryCount = () => {
   if (config.value.retryCount == '' || config.value.retryCount < 0) {
-    config.value.retryCount = 1;
+    config.value.retryCount = 1
   }
-  ttsStore.setRetryCount();
-  successMessage();
-};
+  ttsStore.setRetryCount()
+  successMessage()
+}
 
 const setRetryInterval = () => {
-  if (config.value.retryInterval== '' || config.value.retryInterval < 0) {
-    config.value.retryInterval = 0;
+  if (config.value.retryInterval == '' || config.value.retryInterval < 0) {
+    config.value.retryInterval = 0
   }
-  ttsStore.setRetryInterval();
-  successMessage();
-};
+  ttsStore.setRetryInterval()
+  successMessage()
+}
 </script>
 
 <style scoped>

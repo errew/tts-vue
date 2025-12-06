@@ -34,12 +34,7 @@
       >
         <el-icon v-show="currShow == 3"><FullScreen /></el-icon>
       </el-button>
-      <el-button
-        size="small"
-        circle
-        class="circle-btn"
-        @click="ipcRenderer.send('openDevTools')"
-      >
+      <el-button size="small" circle class="circle-btn" @click="ipcRenderer.send('openDevTools')">
         <el-icon><Monitor /></el-icon>
       </el-button>
     </div>
@@ -48,24 +43,24 @@
 </template>
 
 <script lang="ts" setup>
-import Logo from "./Logo.vue";
-import { ref, watch } from "vue";
-import { useTtsStore } from "@/store/store";
-import { storeToRefs } from "pinia";
+import Logo from './Logo.vue'
+import { ref, watch } from 'vue'
+import { useTtsStore } from '@/store/store'
+import { storeToRefs } from 'pinia'
 
-const ttsStore = useTtsStore();
-const { config } = storeToRefs(ttsStore);
+const ttsStore = useTtsStore()
+const { config } = storeToRefs(ttsStore)
 
 watch(
   () => config.value.titleStyle,
-  (newValue) => {
-    winStyle.value = !newValue;
+  newValue => {
+    winStyle.value = !newValue
   }
-);
+)
 
-const { ipcRenderer } = require("electron");
-const currShow = ref(0);
-const winStyle = ref(!config.value.titleStyle);
+const { ipcRenderer } = require('electron')
+const currShow = ref(0)
+const winStyle = ref(!config.value.titleStyle)
 </script>
 
 <style scoped>

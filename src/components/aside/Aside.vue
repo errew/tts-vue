@@ -1,10 +1,6 @@
 <template>
   <div class="aside">
-    <el-menu
-      :default-active="page.asideIndex"
-      class="el-menu-vertical-demo"
-      @select="menuChange"
-    >
+    <el-menu :default-active="page.asideIndex" class="el-menu-vertical-demo" @select="menuChange">
       <el-menu-item index="1">
         <el-icon><document /></el-icon>
         <span>{{ t('aside.text') }}</span>
@@ -27,19 +23,19 @@
 </template>
 
 <script setup lang="ts">
-import { useTtsStore } from "@/store/store";
-import { storeToRefs } from "pinia";
-import { useI18n } from 'vue-i18n';
-import Version from "./Version.vue";
+import { useTtsStore } from '@/store/store'
+import { storeToRefs } from 'pinia'
+import { useI18n } from 'vue-i18n'
+import Version from './Version.vue'
 
-const { t } = useI18n();
-const ttsStore = useTtsStore();
-const { page, config } = storeToRefs(ttsStore);
+const { t } = useI18n()
+const ttsStore = useTtsStore()
+const { page, config } = storeToRefs(ttsStore)
 
 const menuChange = (index: number) => {
-  if (index === 4) return;
-  page.value.asideIndex = index.toString();
-};
+  if (index === 4) return
+  page.value.asideIndex = index.toString()
+}
 </script>
 
 <style scoped>

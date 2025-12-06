@@ -1,84 +1,75 @@
 <template>
   <div class="version" @click="checkUpdate">
     <span>Version:{{ version }}</span>
-    <el-icon :color="hasUpdate ? '#e6a23c' : '#67c23a'"
-      ><RefreshRight
-    /></el-icon>
+    <el-icon :color="hasUpdate ? '#e6a23c' : '#67c23a'"><RefreshRight /></el-icon>
   </div>
 </template>
 
 <script setup lang="ts">
-import pkg from "../../../package.json";
-import { ref, h } from "vue";
-import { ElNotification, ElMessageBox } from "element-plus";
-import type { Action } from "element-plus";
-import { useI18n } from 'vue-i18n';
-const { t } = useI18n();  
+import pkg from '../../../package.json'
+import { ref, h } from 'vue'
+import { ElNotification, ElMessageBox } from 'element-plus'
+import type { Action } from 'element-plus'
+import { useI18n } from 'vue-i18n'
+const { t } = useI18n()
 
-const Store = require("electron-store");
-const store = new Store();
-const axios = require("axios");
+const Store = require('electron-store')
+const store = new Store()
+const axios = require('axios')
 
-const updateNotification = store.get("updateNotification");
-const version = pkg.version;
+const updateNotification = store.get('updateNotification')
+const version = pkg.version
 const getLatestVsersion = async () => {
-  let data = {};
+  let data = {}
   let latestVsersion = await axios
-    .get("https://gitee.com/api/v5/repos/LGW_space/tts-vue/releases/latest")
+    .get('https://gitee.com/api/v5/repos/LGW_space/tts-vue/releases/latest')
     .catch((e: any) => {
-      console.log(e);
-    });
-  if (typeof latestVsersion == "undefined") {
-    latestVsersion = await axios.get(
-      "https://api.github.com/repos/LokerL/tts-vue/releases/latest"
-    );
+      console.log(e)
+    })
+  if (typeof latestVsersion == 'undefined') {
+    latestVsersion = await axios.get('https://api.github.com/repos/LokerL/tts-vue/releases/latest')
   }
   return {
-    latestVsersion: latestVsersion.data,
+    latestVsersion: latestVsersion.data
     // github: latestVsersion_GitHub.data,
-  };
-};
-let hasUpdate = ref(false);
+  }
+}
+let hasUpdate = ref(false)
 getLatestVsersion().then(({ latestVsersion }) => {
   if (version != latestVsersion.tag_name) {
-    hasUpdate.value = true;
+    hasUpdate.value = true
     if (updateNotification) {
       ElNotification({
         title: t('version.updateAvailable'),
-        message: h("strong", [
-          h("div", [
-            t('version.updateAvailable') + ": ",
+        message: h('strong', [
+          h('div', [
+            t('version.updateAvailable') + ': ',
+            h('i', { style: 'color: teal;margin-right: 5px;' }, latestVsersion.tag_name),
             h(
-              "i",
-              { style: "color: teal;margin-right: 5px;" },
-              latestVsersion.tag_name
-            ),
-            h(
-              "a",
+              'a',
               {
-                href: "https://gitee.com/LGW_space/tts-vue/releases/latest",
-                target: "_blank",
-                style: "margin-bottom: 20px;",
+                href: 'https://gitee.com/LGW_space/tts-vue/releases/latest',
+                target: '_blank',
+                style: 'margin-bottom: 20px;'
               },
               t('version.goToView')
-            ),
+            )
           ]),
-          h("div", latestVsersion.body),
+          h('div', latestVsersion.body)
         ]),
-        type: "success",
-      });
+        type: 'success'
+      })
     }
   }
-});
-
+})
 
 const checkUpdate = async () => {
   getLatestVsersion().then(({ latestVsersion }) => {
-    let versionInfo = "";
+    let versionInfo = ''
     if (version == latestVsersion.tag_name) {
-      versionInfo = `<p class="version-info version-info-success">${t('version.noUpdate')}</p>`;
+      versionInfo = `<p class="version-info version-info-success">${t('version.noUpdate')}</p>`
     } else {
-      versionInfo = `<p class="version-info version-info-warning">${t('version.updateAvailable')}</p>`;
+      versionInfo = `<p class="version-info version-info-warning">${t('version.updateAvailable')}</p>`
     }
     const htmlMsg = `
       <div>
@@ -112,18 +103,18 @@ const checkUpdate = async () => {
     </div>
         </p>
       </div>
-    `;
+    `
 
     ElMessageBox.alert(htmlMsg, t('version.updateInfo'), {
       confirmButtonText: t('version.confirm'),
       closeOnClickModal: true,
       dangerouslyUseHTMLString: true,
       callback: (action: Action) => {
-        console.log(`action: ${action}`);
-      },
-    });
-  });
-};
+        console.log(`action: ${action}`)
+      }
+    })
+  })
+}
 </script>
 
 <style scoped>

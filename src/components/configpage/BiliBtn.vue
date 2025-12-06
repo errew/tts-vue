@@ -12,12 +12,12 @@
 </template>
 
 <script setup lang="ts">
-import { useI18n } from 'vue-i18n';
-const { shell } = require("electron");
-const { t } = useI18n();
+import { useI18n } from 'vue-i18n'
+const { shell } = require('electron')
+const { t } = useI18n()
 const bilibili = () => {
-  shell.openExternal("https://space.bilibili.com/19149591");
-};
+  shell.openExternal('https://space.bilibili.com/19149591')
+}
 </script>
 
 <style scoped>
